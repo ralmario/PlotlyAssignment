@@ -1,0 +1,34 @@
+---
+title: "Peer-graded Assignment Submission: R Markdown and Plotly"
+author: "Ranxel Almario"
+date: "January 28, 2019"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r prep, echo=FALSE, message=FALSE}
+library("plotly")
+library("openxlsx")
+phiranks <- read.xlsx("phirankings.xlsx", sheet=1, colNames=TRUE, skipEmptyRows = FALSE, skipEmptyCols = TRUE, fillMergedCells = FALSE, startRow = 1)
+```
+
+## PHI FIFA World Men's Highest Rankings/Year
+```{r, echo=FALSE}
+p <- plot_ly(phiranks, x = ~Year,
+             y = ~Highest.Rank, 
+             type = "scatter", 
+             mode = "lines+markers", 
+             hoverinfo = "text",
+             text = ~paste0("PHI Highest Ranking (",Year,"): #", Highest.Rank))  %>% 
+             layout(xaxis = list(type = "category"), 
+                    yaxis = list(autorange = "reversed", 
+                                 title="Ranking"))
+p
+```
+
+## Sources
+
+- FIFA.com. (2018, December 20). The FIFA/Coca-Cola World Ranking - Associations - Philippines - Men's. Retrieved January 28, 2019, from [https://www.fifa.com/fifa-world-ranking/associations/association=phi/men/index.html](https://www.fifa.com/fifa-world-ranking/associations/association=phi/men/index.html)
